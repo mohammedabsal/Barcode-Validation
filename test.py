@@ -14,7 +14,7 @@ import numpy as np
 
 # ---------- CONFIG ----------
 PDF_FOLDER = "./"
-MAIN_PAGE_COUNT = 34
+MAIN_PAGE_COUNT = 36
 SUPPL_SET_SIZE = 4
 STATE_FILE = "latest_report.txt"
 BASE_HEADER = [
@@ -272,6 +272,11 @@ def validate(pdf_path, csv_path):
 
     if supp_issues:
         details.append(f"Supp issues: {supp_issues}")
+
+    # Check page count: main pages (36) + supplementary pages (4 per set)
+    expected_pages = MAIN_PAGE_COUNT + (num_supp_sets * SUPPL_SET_SIZE)
+    if total_pages < expected_pages:
+        details.append(f"Page count error")
 
     detail_text = "; ".join(details) if details else "-"
 
